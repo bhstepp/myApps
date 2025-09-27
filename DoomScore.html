@@ -69,15 +69,143 @@
     </div>
 
     <section class="faq">
-      <h2>FAQ</h2>
-      <details>
-        <summary>How do I use App 1?</summary>
-        <p>Instructions go here...</p>
-      </details>
-      <details>
-        <summary>Does it work offline?</summary>
-        <p>Answer goes here...</p>
-      </details>
+      <div class="container">
+        <h1>DoomScore - Frequently Asked Questions (FAQ)</h1>
+
+        <h2>General Questions</h2>
+
+        <h3>What is DoomScore?</h3>
+        <p>DoomScore is an unofficial iOS scoring app for the Doomlings board game. It helps players track scores through all 4 rounds of gameplay and automatically determines the winner.</p>
+
+        <h3>What devices does DoomScore support?</h3>
+        <p>DoomScore is built for iOS devices using SwiftUI and requires iOS 14.0 or later. It's optimized for iPhones and supports various screen sizes including iPhone SE.</p>
+
+        <h3>Is this an official Doomlings app?</h3>
+        <p>No, DoomScore is an unofficial, fan-made scoring app. It's not affiliated with or endorsed by the creators of Doomlings.</p>
+
+        <h2>Getting Started</h2>
+
+        <h3>How do I start a new game?</h3>
+        <ol>
+          <li>Open the app and tap "START A GAME" on the welcome screen</li>
+          <li>Add players by entering their names in the "Add New Victim" field</li>
+          <li>Select at least 2 players from your list (minimum required to start)</li>
+          <li>Tap "BEGIN THE DOOM" to start the first round</li>
+        </ol>
+
+        <h3>How many players can I add?</h3>
+        <p>You can add as many players as you want to your master list, but you need to select at least 2 players to start a game. The app supports any number of players for a single game.</p>
+
+        <h3>Can I save players for future games?</h3>
+        <p>Yes! Players are automatically saved using Core Data. Once you add a player, they'll appear in your player list for all future games.</p>
+
+        <h2>Gameplay Features</h2>
+
+        <h3>What are the 4 rounds?</h3>
+        <p>The app tracks scores for 4 distinct rounds:</p>
+        <ol>
+          <li><strong>Round 1: World's End</strong> - Initial scoring phase</li>
+          <li><strong>Round 2: Face Value Points</strong> - Points from card face values (ignore symbols for now)</li>
+          <li><strong>Round 3: Bonus Points</strong> - Additional scoring opportunities</li>
+          <li><strong>Round 4: Expansions</strong> - Points from expansion content</li>
+        </ol>
+
+        <h3>How do I enter scores?</h3>
+        <p>Each round uses custom dial controls for score input. Simply rotate the dial to set each player's score for that round. Scores are automatically saved as you adjust them.</p>
+
+        <h3>Can I go back to previous rounds?</h3>
+        <p>Yes, you can use the back button to return to previous rounds and modify scores if needed.</p>
+
+        <h3>How does the app determine the winner?</h3>
+        <p>The app automatically calculates total scores by adding all 4 rounds for each player. The player with the highest total score is declared the winner.</p>
+
+        <h2>Player Management</h2>
+
+        <h3>How do I add a new player?</h3>
+        <ol>
+          <li>Go to the Player Setup screen</li>
+          <li>Enter the player's name in the "Add New Victim" text field</li>
+          <li>Tap the plus (+) button to add them</li>
+          <li>The player will be added to your master list and automatically selected</li>
+        </ol>
+
+        <h3>Can I delete players?</h3>
+        <p>Yes, you can delete players from your master list by swiping left on their name in the player list and tapping delete.</p>
+
+        <h3>What happens if I try to add a duplicate name?</h3>
+        <p>The app prevents duplicate player names. You'll receive an error message if you try to add a player with a name that already exists.</p>
+
+        <h3>How do I remove a player from the current game?</h3>
+        <p>Tap the X button on their name chip in the "CHOSEN ONES" section, or unselect them from the main player list.</p>
+
+        <h2>Leaderboard & Statistics</h2>
+
+        <h3>Does the app track wins?</h3>
+        <p>Yes, the app tracks total wins for each player using Core Data. You can view the leaderboard from the welcome screen.</p>
+
+        <h3>How do I view the leaderboard?</h3>
+        <p>From the welcome screen, tap "VIEW LEADERBOARD" to see player statistics and win counts.</p>
+
+        <h3>Are game results automatically saved?</h3>
+        <p>Player win counts are updated automatically when a game is completed.</p>
+
+        <h2>Technical Issues</h2>
+
+        <h3>The app isn't working properly. What should I do?</h3>
+        <ol>
+          <li>Try force-closing and reopening the app</li>
+          <li>Restart your device</li>
+          <li>Make sure you have the latest version installed</li>
+          <li>If problems persist, you may need to reinstall the app</li>
+        </ol>
+
+        <h3>I lost my player data. Can I recover it?</h3>
+        <p>Player data is stored locally using Core Data. If the app data is deleted or corrupted, unfortunately the player list and win statistics cannot be recovered.</p>
+
+        <h3>Does the app work offline?</h3>
+        <p>Yes, DoomScore works completely offline. No internet connection is required.</p>
+
+        <h2>Game Rules & Scoring</h2>
+
+        <h3>Does the app enforce Doomlings rules?</h3>
+        <p>No, the app is purely a score tracker. It doesn't enforce any specific game rules or validate scores - you can enter any score values.</p>
+
+        <h3>Can I use this for different versions of Doomlings?</h3>
+        <p>Yes, since the app doesn't enforce specific rules, you can use it to track scores for different versions or house rules of Doomlings.</p>
+
+        <h3>What if we play with different rounds?</h3>
+        <p>While the app is designed for the standard 4-round Doomlings format, you can adapt it by skipping rounds or entering 0 for unused rounds.</p>
+
+        <h2>App Features</h2>
+
+        <h3>Can I customize the themes or colors?</h3>
+        <p>The app uses a fixed "Doom" theme with colors inspired by creature artwork (browns, dark blues, golden accents). Theme customization is not currently available.</p>
+
+        <h3>Does the app have sound effects?</h3>
+        <p>No, the current version focuses on clean, visual scoring without audio elements.</p>
+
+        <h3>Can I export game results?</h3>
+        <p>Currently, the app doesn't support exporting game data or results to external files.</p>
+
+        <h2>Tips & Best Practices</h2>
+
+        <h3>Any tips for faster score entry?</h3>
+        <ul>
+          <li>Pre-add your regular gaming group to the player list</li>
+          <li>Use the dial controls efficiently by dragging to quickly reach approximate scores, then fine-tune</li>
+          <li>Take advantage of the ability to go back and modify previous round scores if needed</li>
+        </ul>
+
+        <h3>How should I handle ties?</h3>
+        <p>The app will show the first player in the list as the winner in case of ties. You can implement your own tie-breaking rules outside the app.</p>
+
+        <h3>Can I use this for tournaments?</h3>
+        <p>While possible, the app is designed for individual game sessions. For tournaments, you'd need to manually track results from multiple games.</p>
+
+        <div class="footer">
+          <p><em>This FAQ covers the current version of DoomScore. Features and functionality may change in future updates.</em></p>
+        </div>
+      </div>
     </section>
   </main>
 
