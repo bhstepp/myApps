@@ -1,21 +1,6 @@
-// Initialize EmailJS with your public key
+// Initialize EmailJS
 emailjs.init({
-  publicKey: 'GHoZp7EnT7nHPyEDW', // Replace with your EmailJS public key
-});
-
-// Test EmailJS connection on page load
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('EmailJS initialized with public key:', 'GHoZp7EnT7nHPyEDW');
-  console.log('Service ID:', 'service_1wcubw4');
-  console.log('Template ID:', 'template_bwyei2a');
-
-  // Add event listeners for popup close buttons
-  document.querySelectorAll('.popup-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
-      const popupId = this.getAttribute('data-popup');
-      closePopup(popupId);
-    });
-  });
+  publicKey: 'GHoZp7EnT7nHPyEDW'
 });
 
 // Popup functions
@@ -27,26 +12,36 @@ function closePopup(popupId) {
   document.getElementById(popupId).classList.remove('show');
 }
 
-// Close popup when clicking outside
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('popup-overlay')) {
-    e.target.classList.remove('show');
-  }
-});
-
-// Close popup with Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.popup-overlay.show').forEach(popup => {
-      popup.classList.remove('show');
-    });
-  }
-});
-
+// Single DOMContentLoaded listener for all functionality
 document.addEventListener('DOMContentLoaded', function() {
+
+  // Add event listeners for popup close buttons
+  document.querySelectorAll('.popup-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      const popupId = this.getAttribute('data-popup');
+      closePopup(popupId);
+    });
+  });
+
+  // Close popup when clicking outside
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('popup-overlay')) {
+      e.target.classList.remove('show');
+    }
+  });
+
+  // Close popup with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.popup-overlay.show').forEach(popup => {
+        popup.classList.remove('show');
+      });
+    }
+  });
+
+  // Contact form handling
   const contactForm = document.getElementById('contactForm');
   if (!contactForm) {
-    console.error('Contact form not found!');
     return;
   }
 
@@ -107,20 +102,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Send email using EmailJS
   emailjs.send('service_1wcubw4', 'template_bwyei2a', {
-    user_name: sanitize(name.trim()),
-    user_email: sanitize(email.trim()),
+    name: sanitize(name.trim()),
+    email: sanitize(email.trim()),
     message: sanitize(message.trim()),
     to_name: 'My Apps'
   })
   .then(function(response) {
-    console.log('EmailJS Success:', response.status, response.text);
     showPopup('successPopup');
     contactForm.reset();
   })
   .catch(function(error) {
-    console.error('EmailJS Error Details:', error);
-    console.error('Error status:', error.status);
-    console.error('Error text:', error.text);
     showPopup('errorPopup');
   })
   .finally(function() {
