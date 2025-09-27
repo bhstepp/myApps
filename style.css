@@ -142,8 +142,15 @@ button {
   cursor: pointer;
 }
 
-.honeypot {
+input.honeypot {
   display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
 }
 
 footer {

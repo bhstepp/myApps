@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
   .then(function(response) {
     console.log('EmailJS Success:', response.status, response.text);
     showPopup('successPopup');
-    document.getElementById('contactForm').reset();
+    contactForm.reset();
   })
   .catch(function(error) {
     console.error('EmailJS Error Details:', error);
