@@ -3,6 +3,31 @@ emailjs.init({
   publicKey: 'GHoZp7EnT7nHPyEDW', // Replace with your EmailJS public key
 });
 
+// Popup functions
+function showPopup(popupId) {
+  document.getElementById(popupId).classList.add('show');
+}
+
+function closePopup(popupId) {
+  document.getElementById(popupId).classList.remove('show');
+}
+
+// Close popup when clicking outside
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('popup-overlay')) {
+    e.target.classList.remove('show');
+  }
+});
+
+// Close popup with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.popup-overlay.show').forEach(popup => {
+      popup.classList.remove('show');
+    });
+  }
+});
+
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
@@ -32,7 +57,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   for (let input of inputs) {
     for (let pattern of suspiciousPatterns) {
       if (pattern.test(input)) {
-        alert('Invalid input detected. Please remove any HTML or script tags.');
+        showPopup('errorPopup');
         return false;
       }
     }
@@ -40,12 +65,12 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
   // Additional validation
   if (name.trim().length < 2) {
-    alert('Name must be at least 2 characters long.');
+    showPopup('errorPopup');
     return false;
   }
 
   if (message.trim().length < 10) {
-    alert('Message must be at least 10 characters long.');
+    showPopup('errorPopup');
     return false;
   }
 
@@ -66,11 +91,11 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     to_name: 'My Apps', // Your name or company name
   })
   .then(function(response) {
-    alert('Message sent successfully!');
+    showPopup('successPopup');
     document.getElementById('contactForm').reset();
   })
   .catch(function(error) {
-    alert('Failed to send message. Please try again.');
+    showPopup('errorPopup');
     console.error('EmailJS error:', error);
   })
   .finally(function() {

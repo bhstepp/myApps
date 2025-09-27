@@ -33,6 +33,26 @@
     </form>
   </main>
 
+  <!-- Success Popup -->
+  <div id="successPopup" class="popup-overlay">
+    <div class="popup-content success">
+      <div class="popup-icon">✓</div>
+      <h3>Message Sent Successfully!</h3>
+      <p>Thank you for your message. We'll get back to you soon.</p>
+      <button class="popup-btn" onclick="closePopup('successPopup')">Close</button>
+    </div>
+  </div>
+
+  <!-- Error Popup -->
+  <div id="errorPopup" class="popup-overlay">
+    <div class="popup-content error">
+      <div class="popup-icon">⚠</div>
+      <h3>Something Went Wrong</h3>
+      <p>We couldn't send your message right now. Please try again in a minute.</p>
+      <button class="popup-btn" onclick="closePopup('errorPopup')">Try Again</button>
+    </div>
+  </div>
+
   <footer>
     <p>&copy; 2025 My Apps. All rights reserved.</p>
   </footer>
