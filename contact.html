@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; form-action 'self' https://formspree.io;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.emailjs.com;">
   <title>Contact - My Apps</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <header>
@@ -19,7 +20,7 @@
 
   <main>
     <h1>Contact Me</h1>
-    <form action="https://formspree.io/f/your-form-id" method="POST" id="contactForm">
+    <form id="contactForm">
       <label>Name <input type="text" name="name" id="name" required maxlength="100"></label>
       <label>Email <input type="email" name="_replyto" id="email" required maxlength="254"></label>
       <label>Message <textarea name="message" id="message" required maxlength="5000" rows="5"></textarea></label>
@@ -33,10 +34,18 @@
   </footer>
 
   <script>
+    // Initialize EmailJS with your public key
+    emailjs.init({
+      publicKey: 'GHoZp7EnT7nHPyEDW', // Replace with your EmailJS public key
+    });
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
       const message = document.getElementById('message').value;
+      const submitBtn = document.querySelector('button[type="submit"]');
 
       // Basic input sanitization
       const sanitize = (str) => {
@@ -59,7 +68,6 @@
       for (let input of inputs) {
         for (let pattern of suspiciousPatterns) {
           if (pattern.test(input)) {
-            e.preventDefault();
             alert('Invalid input detected. Please remove any HTML or script tags.');
             return false;
           }
@@ -68,20 +76,43 @@
 
       // Additional validation
       if (name.trim().length < 2) {
-        e.preventDefault();
         alert('Name must be at least 2 characters long.');
         return false;
       }
 
       if (message.trim().length < 10) {
-        e.preventDefault();
         alert('Message must be at least 10 characters long.');
         return false;
       }
 
-      // Sanitize inputs before submission
-      document.getElementById('name').value = sanitize(name.trim());
-      document.getElementById('message').value = sanitize(message.trim());
+      // Check honeypot
+      if (document.querySelector('input[name="_gotcha"]').value) {
+        return false; // Bot detected
+      }
+
+      // Disable submit button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+
+      // Send email using EmailJS
+      emailjs.send('service_1wcubw4', 'template_bwyei2a', {
+        from_name: sanitize(name.trim()),
+        from_email: email.trim(),
+        message: sanitize(message.trim()),
+        to_name: 'My Apps', // Your name or company name
+      })
+      .then(function(response) {
+        alert('Message sent successfully!');
+        document.getElementById('contactForm').reset();
+      })
+      .catch(function(error) {
+        alert('Failed to send message. Please try again.');
+        console.error('EmailJS error:', error);
+      })
+      .finally(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send';
+      });
     });
   </script>
 </body>
