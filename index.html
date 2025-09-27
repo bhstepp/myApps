@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <title>My Apps</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -18,16 +22,22 @@
     </nav>
   </header>
 
-  <main class="hero">
-    <h1>Welcome to My Apps</h1>
-    <p>Simple, useful apps built for iOS.</p>
-    <div class="cards">
+  <main>
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h1>Welcome to My Apps</h1>
+        <p>Simple, useful apps built for iOS.</p>
+      </div>
+    </section>
+    <section class="apps-section">
+      <div class="cards">
       <a href="DoomScore.html" class="card">
         <h2>DoomScore</h2>
         <p>Scoring app for the Doomlings card game</p>
       </a>
-      
-    </div>
+
+      </div>
+    </section>
   </main>
 
   <footer>
