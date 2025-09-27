@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('EmailJS initialized with public key:', 'GHoZp7EnT7nHPyEDW');
   console.log('Service ID:', 'service_1wcubw4');
   console.log('Template ID:', 'template_bwyei2a');
+
+  // Add event listeners for popup close buttons
+  document.querySelectorAll('.popup-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      const popupId = this.getAttribute('data-popup');
+      closePopup(popupId);
+    });
+  });
 });
 
 // Popup functions
