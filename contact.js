@@ -3,6 +3,13 @@ emailjs.init({
   publicKey: 'GHoZp7EnT7nHPyEDW', // Replace with your EmailJS public key
 });
 
+// Test EmailJS connection on page load
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('EmailJS initialized with public key:', 'GHoZp7EnT7nHPyEDW');
+  console.log('Service ID:', 'service_1wcubw4');
+  console.log('Template ID:', 'template_bwyei2a');
+});
+
 // Popup functions
 function showPopup(popupId) {
   document.getElementById(popupId).classList.add('show');
@@ -85,18 +92,21 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 
   // Send email using EmailJS
   emailjs.send('service_1wcubw4', 'template_bwyei2a', {
-    from_name: sanitize(name.trim()),
-    from_email: sanitize(email.trim()),
+    user_name: sanitize(name.trim()),
+    user_email: sanitize(email.trim()),
     message: sanitize(message.trim()),
-    to_name: 'My Apps', // Your name or company name
+    to_name: 'My Apps'
   })
   .then(function(response) {
+    console.log('EmailJS Success:', response.status, response.text);
     showPopup('successPopup');
     document.getElementById('contactForm').reset();
   })
   .catch(function(error) {
+    console.error('EmailJS Error Details:', error);
+    console.error('Error status:', error.status);
+    console.error('Error text:', error.text);
     showPopup('errorPopup');
-    console.error('EmailJS error:', error);
   })
   .finally(function() {
     submitBtn.disabled = false;
