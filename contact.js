@@ -35,7 +35,14 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  if (!contactForm) {
+    console.error('Contact form not found!');
+    return;
+  }
+
+  contactForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
@@ -111,5 +118,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   .finally(function() {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Send';
+  });
   });
 });
