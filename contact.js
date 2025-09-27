@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
+  const subject = document.getElementById('subject').value;
   const message = document.getElementById('message').value;
   const submitBtn = document.querySelector('button[type="submit"]');
 
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /<embed[^>]*>/i
   ];
 
-  const inputs = [name, email, message];
+  const inputs = [name, email, subject, message];
   for (let input of inputs) {
     for (let pattern of suspiciousPatterns) {
       if (pattern.test(input)) {
@@ -82,6 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Additional validation
   if (name.trim().length < 2) {
+    showPopup('errorPopup');
+    return false;
+  }
+
+  if (subject.trim().length < 3) {
     showPopup('errorPopup');
     return false;
   }
@@ -104,13 +110,15 @@ document.addEventListener('DOMContentLoaded', function() {
   const templateParams = {
     name: sanitize(name.trim()),
     email: sanitize(email.trim()),
+    title: sanitize(subject.trim()),
     message: sanitize(message.trim()),
     to_name: 'My Apps',
     // Alternative common EmailJS parameter names
     from_name: sanitize(name.trim()),
     reply_to: sanitize(email.trim()),
     user_name: sanitize(name.trim()),
-    user_email: sanitize(email.trim())
+    user_email: sanitize(email.trim()),
+    subject: sanitize(subject.trim())
   };
 
   // Temporary debug - check what we're sending
