@@ -101,12 +101,22 @@ document.addEventListener('DOMContentLoaded', function() {
   submitBtn.textContent = 'Sending...';
 
   // Send email using EmailJS
-  emailjs.send('service_1wcubw4', 'template_bwyei2a', {
+  const templateParams = {
     name: sanitize(name.trim()),
     email: sanitize(email.trim()),
     message: sanitize(message.trim()),
-    to_name: 'My Apps'
-  })
+    to_name: 'My Apps',
+    // Alternative common EmailJS parameter names
+    from_name: sanitize(name.trim()),
+    reply_to: sanitize(email.trim()),
+    user_name: sanitize(name.trim()),
+    user_email: sanitize(email.trim())
+  };
+
+  // Temporary debug - check what we're sending
+  console.log('Sending EmailJS parameters:', templateParams);
+
+  emailjs.send('service_1wcubw4', 'template_bwyei2a', templateParams)
   .then(function(response) {
     showPopup('successPopup');
     contactForm.reset();
