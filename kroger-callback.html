@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kroger OAuth Callback - Meal Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .callback-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .code-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 0.3rem 0.8rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn:hover {
+            background: #0056b3;
+        }
+
+        .copy-btn.copied {
+            background: #28a745;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5rem;
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">My Apps</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="DoomScore.html">DoomScore</a></li>
+                <li><a href="MealPlanner.html">Meal Planner</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="callback-container">
+            <h1>🔐 Kroger OAuth Callback</h1>
+            <p>This page handles the OAuth authorization response from Kroger for the Meal Planner app.</p>
+
+            <div id="loading" class="loading">
+                <p>Processing authorization response...</p>
+            </div>
+
+            <div id="success-content" style="display: none;">
+                <div class="success">
+                    <h3>✅ Authorization Successful!</h3>
+                    <p>Your Kroger account has been successfully authorized for the Meal Planner app.</p>
+                </div>
+
+                <div class="instructions">
+                    <h4>📋 Next Steps:</h4>
+                    <p><span class="step-number">1</span>Copy the authorization code below</p>
+                    <p><span class="step-number">2</span>Paste it into your OAuth setup script</p>
+                    <p><span class="step-number">3</span>Complete the token exchange process</p>
+                </div>
+
+                <h4>Authorization Code:</h4>
+                <div class="code-display">
+                    <button class="copy-btn" onclick="copyCode()">Copy</button>
+                    <div id="auth-code"></div>
+                </div>
+
+                <div class="instructions">
+                    <h4>🔧 For OAuth Setup Script:</h4>
+                    <p>When prompted for the "full redirect URL", paste this entire page URL:</p>
+                    <div class="code-display">
+                        <button class="copy-btn" onclick="copyFullUrl()">Copy</button>
+                        <div id="full-url"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-content" style="display: none;">
+                <div class="error">
+                    <h3>❌ Authorization Failed</h3>
+                    <p id="error-message"></p>
+                </div>
+
+                <div class="instructions">
+                    <h4>🔄 Try Again:</h4>
+                    <p><span class="step-number">1</span>Go back to your OAuth setup script</p>
+                    <p><span class="step-number">2</span>Check your Kroger app configuration</p>
+                    <p><span class="step-number">3</span>Ensure this redirect URI is registered: <code>https://bhstepp.github.io/myApps/kroger-callback.html</code></p>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h4>🏠 Return to Meal Planner</h4>
+                <p><a href="MealPlanner.html">← Back to Meal Planner</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 My Apps. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function parseUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+
+            // Check both query params and hash params (OAuth can use either)
+            const code = urlParams.get('code') || hashParams.get('code');
+            const error = urlParams.get('error') || hashParams.get('error');
+            const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
+            const state = urlParams.get('state') || hashParams.get('state');
+
+            return { code, error, errorDescription, state };
+        }
+
+        function displaySuccess(code) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('success-content').style.display = 'block';
+            document.getElementById('auth-code').textContent = code;
+            document.getElementById('full-url').textContent = window.location.href;
+        }
+
+        function displayError(error, description) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error-content').style.display = 'block';
+
+            let errorMessage = `Error: ${error}`;
+            if (description) {
+                errorMessage += `\nDescription: ${description}`;
+            }
+
+            document.getElementById('error-message').textContent = errorMessage;
+        }
+
+        function copyCode() {
+            const codeText = document.getElementById('auth-code').textContent;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function copyFullUrl() {
+            const urlText = document.getElementById('full-url').textContent;
+            navigator.clipboard.writeText(urlText).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Process the OAuth response
+        document.addEventListener('DOMContentLoaded', function() {
+            const { code, error, errorDescription, state } = parseUrlParams();
+
+            if (error) {
+                displayError(error, errorDescription);
+            } else if (code) {
+                displaySuccess(code);
+            } else {
+                displayError('no_code', 'No authorization code found in the URL. The OAuth flow may not have completed properly.');
+            }
+        });
+
+        // Update page title based on result
+        window.addEventListener('load', function() {
+            const { code, error } = parseUrlParams();
+            if (code) {
+                document.title = 'OAuth Success - Meal Planner';
+            } else if (error) {
+                document.title = 'OAuth Error - Meal Planner';
+            }
+        });
+    </script>
+</body>
+</html>
