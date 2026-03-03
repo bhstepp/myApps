@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <title>Meal Planner - My Apps</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html" class="logo">My Apps</a>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="DoomScore.html">DoomScore</a></li>
+        <li><a href="MealPlanner.html">Meal Planner</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h1>Meal Planner</h1>
+        <p>Automated weekly meal planning and grocery cart management system</p>
+      </div>
+    </section>
+
+    <section class="app-details">
+      <div class="content">
+        <h2>About Meal Planner</h2>
+        <p>An intelligent meal planning system that integrates with your calendar, generates personalized meal plans using AI, and automatically populates your grocery cart. Perfect for busy families who want to streamline their weekly meal preparation.</p>
+
+        <h3>Key Features</h3>
+        <ul>
+          <li>📅 <strong>Calendar Integration</strong> - Reads your iCloud calendar to plan around events</li>
+          <li>🧠 <strong>AI-Powered Planning</strong> - Uses Claude AI to generate personalized meal suggestions</li>
+          <li>🛒 <strong>Automated Shopping</strong> - Populates your Kroger cart with needed ingredients</li>
+          <li>📱 <strong>SMS Notifications</strong> - Sends plan updates and grocery alerts to your phone</li>
+          <li>📚 <strong>Learning System</strong> - Remembers preferences and avoids recent meals</li>
+          <li>👥 <strong>Multi-User Support</strong> - Works for couples and families</li>
+        </ul>
+
+        <h3>How It Works</h3>
+        <div class="workflow-steps">
+          <div class="step">
+            <h4>1. Saturday Morning</h4>
+            <p>System reads your calendar and generates a draft meal plan for the upcoming week</p>
+          </div>
+          <div class="step">
+            <h4>2. Review & Confirm</h4>
+            <p>Receive SMS notification, review the plan, and confirm your preferences</p>
+          </div>
+          <div class="step">
+            <h4>3. Grocery List Creation</h4>
+            <p>Automatically builds shopping list and adds items to your Kroger cart</p>
+          </div>
+          <div class="step">
+            <h4>4. Shop & Cook</h4>
+            <p>Pick up groceries or schedule delivery, then follow your personalized meal plan</p>
+          </div>
+        </div>
+
+        <h3>Technology</h3>
+        <p>Built using GitHub Actions for automation, integrating with Claude AI, iCloud Calendar, Kroger API, and Twilio SMS. Fully cloud-hosted with no local hardware requirements.</p>
+
+        <div class="repo-link">
+          <h3>Source Code</h3>
+          <p>This is an open-source personal automation system. View the code and documentation:</p>
+          <a href="https://github.com/bhstepp/meal-planner" target="_blank" rel="noopener noreferrer" class="github-link">
+            View on GitHub →
+          </a>
+        </div>
+
+        <div class="legal-section">
+          <h3>Legal Information</h3>
+          <p>Please review our privacy policy and terms of service:</p>
+          <div class="legal-links">
+            <a href="https://raw.githubusercontent.com/bhstepp/meal-planner/main/PRIVACY_POLICY.md" target="_blank" rel="noopener noreferrer" class="legal-link">
+              Privacy Policy
+            </a>
+            <a href="https://raw.githubusercontent.com/bhstepp/meal-planner/main/TERMS_AND_CONDITIONS.md" target="_blank" rel="noopener noreferrer" class="legal-link">
+              Terms & Conditions
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <h3>Questions?</h3>
+          <p>This system is designed for personal use. For questions about setup or customization, check the repository documentation or <a href="contact.html">contact me</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Apps. All rights reserved.</p>
+  </footer>
+
+  <style>
+    .app-details {
+      padding: 2rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .content h2, .content h3 {
+      color: #333;
+      margin-top: 2rem;
+    }
+
+    .content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .content ul {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .content li {
+      margin: 0.5rem 0;
+      line-height: 1.5;
+    }
+
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .step {
+      background: #f8f9fa;
+      padding: 1.2rem;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+    }
+
+    .step h4 {
+      color: #007bff;
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .step p {
+      margin: 0;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .repo-link, .legal-section, .contact-section {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .github-link, .legal-link {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      padding: 0.7rem 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 0.5rem 0.5rem 0.5rem 0;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .github-link:hover, .legal-link:hover {
+      background: #0056b3;
+    }
+
+    .legal-links {
+      margin-top: 1rem;
+    }
+
+    .legal-link {
+      background: #6c757d;
+    }
+
+    .legal-link:hover {
+      background: #545b62;
+    }
+  </style>
+</body>
+</html>
